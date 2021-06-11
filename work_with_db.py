@@ -30,9 +30,6 @@ class UrlDataBase:
         first_char = self.get_char_from_number(first_number)
         second_char = self.get_char_from_number(second_number)
         random_url = f"{first_char}{second_char}"
-        print(random_number)
-        print(first_number)
-        print(second_number)
         while (self.is_short_url_have(random_url)):
             random_number = random.randrange(start=0,stop=size_random)
             first_number = random_number // size_random
@@ -59,3 +56,12 @@ class UrlDataBase:
             return short_url[0][0]
         else:
             return self.add_new_url(long_url)
+
+    def get_long_url_from_db(self, short_url):
+        execute_str = f"SELECT long_url FROM urls WHERE short_url=='{short_url}'"
+        self.cursor.execute(execute_str)
+        long_url = self.cursor.fetchall()
+        if len(long_url) == 0:
+            return 0
+        else:
+            return long_url[0][0]
