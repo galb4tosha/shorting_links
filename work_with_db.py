@@ -24,18 +24,21 @@ class UrlDataBase:
 
     def generate_short_url(self, long_url):
         size_random = 3844
-        random_number = random.randrange(stop=size_random)
-        first_number = random_number // size_random
-        second_number = random_number % size_random
-        random_url = f"{first_number}{second_number}"
+        random_number = random.randrange(start=0,stop=size_random)
+        first_number = random_number // 62
+        second_number = random_number % 62
+        first_char = self.get_char_from_number(first_number)
+        second_char = self.get_char_from_number(second_number)
+        random_url = f"{first_char}{second_char}"
+        print(random_number)
+        print(first_number)
+        print(second_number)
         while (self.is_short_url_have(random_url)):
-            random_number = random.randrange(stop=size_random)
+            random_number = random.randrange(start=0,stop=size_random)
             first_number = random_number // size_random
             second_number = random_number % size_random
             random_url = f"{first_number}{second_number}"
-        return random_url
-
-        
+        return random_url        
 
     def add_new_url(self, long_url):
         short_url = self.generate_short_url(long_url)
@@ -56,6 +59,3 @@ class UrlDataBase:
             return short_url[0][0]
         else:
             return self.add_new_url(long_url)
-
-a = UrlDataBase()
-print(a.get_char_from_number(53))
