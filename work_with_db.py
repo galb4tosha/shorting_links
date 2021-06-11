@@ -4,7 +4,7 @@ import sqlite3
 class UrlDataBase:
 
     def __init__(self):
-        self.conn = sqlite3.connect("urls.db")
+        self.conn = sqlite3.connect("urls.db", check_same_thread=False)
         self.cursor = self.conn.cursor()
 
     def generate_short_url(self, long_url):
@@ -29,6 +29,3 @@ class UrlDataBase:
             return short_url[0][0]
         else:
             return self.add_new_url(long_url)
-
-data = UrlDataBase()
-print(data.add_new_url('insta'))
